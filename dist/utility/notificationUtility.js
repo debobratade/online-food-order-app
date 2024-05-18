@@ -1,5 +1,5 @@
 "use strict";
-//Email
+/* ------------------- OTP --------------------- */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -10,26 +10,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.onRequestOtp = exports.generateOtp = void 0;
-//Notification
-//OTP
-const generateOtp = () => {
-    const otp = Math.floor(100000 + Math.random() * 900000);
+exports.onRequestOTP = exports.GenerateOtp = void 0;
+const GenerateOtp = () => {
+    const otp = Math.floor(10000 + Math.random() * 900000);
     let expiry = new Date();
-    expiry.setTime(new Date().getTime() + (30 * 60 * 100));
+    expiry.setTime(new Date().getTime() + (30 * 60 * 1000));
     return { otp, expiry };
 };
-exports.generateOtp = generateOtp;
-const onRequestOtp = (otp, toPhoneNumber) => __awaiter(void 0, void 0, void 0, function* () {
-    const accountSId = '';
-    const authToken = '';
-    const client = require('twilio')(accountSId, authToken);
-    const response = yield client.message.create({
-        body: `Your OTP is ${otp}`,
-        from: '',
-        to: toPhoneNumber
-    });
-    return response;
+exports.GenerateOtp = GenerateOtp;
+const onRequestOTP = (otp, toPhoneNumber) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const accountSid = " Account SID from TWILIO DASHBOARD";
+        const authToken = " AUTH TOKEN AS I SAID ON VIDEO";
+        const client = require('twilio')(accountSid, authToken);
+        const response = yield client.message.create({
+            body: `Your OTP is ${otp}`,
+            from: 'Your TWILIO PHONE NUMBER YOU CAN GET IT FROM YOUR DASHBOARD',
+            to: `recipient_countrycode${toPhoneNumber}` // recipient phone number // Add country before the number
+        });
+        return response;
+    }
+    catch (error) {
+        return false;
+    }
 });
-exports.onRequestOtp = onRequestOtp;
-//# sourceMappingURL=notificationUtility.js.map
+exports.onRequestOTP = onRequestOTP;
+//# sourceMappingURL=NotificationUtility.js.map

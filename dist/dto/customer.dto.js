@@ -9,47 +9,84 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CustomerLoginInputs = exports.EditCustomerProfileInputs = exports.CreateCustomerInputs = void 0;
+exports.CreateDeliveryUserInput = exports.OrderInputs = exports.CartItem = exports.EditCustomerProfileInput = exports.UserLoginInput = exports.CreateCustomerInput = void 0;
 const class_validator_1 = require("class-validator");
-class CreateCustomerInputs {
+class CreateCustomerInput {
 }
-exports.CreateCustomerInputs = CreateCustomerInputs;
+exports.CreateCustomerInput = CreateCustomerInput;
 __decorate([
     (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
-], CreateCustomerInputs.prototype, "email", void 0);
+], CreateCustomerInput.prototype, "email", void 0);
 __decorate([
     (0, class_validator_1.Length)(7, 12),
     __metadata("design:type", String)
-], CreateCustomerInputs.prototype, "phone", void 0);
+], CreateCustomerInput.prototype, "phone", void 0);
 __decorate([
     (0, class_validator_1.Length)(6, 12),
     __metadata("design:type", String)
-], CreateCustomerInputs.prototype, "password", void 0);
-class EditCustomerProfileInputs {
+], CreateCustomerInput.prototype, "password", void 0);
+class UserLoginInput {
 }
-exports.EditCustomerProfileInputs = EditCustomerProfileInputs;
-__decorate([
-    (0, class_validator_1.Length)(3, 16),
-    __metadata("design:type", String)
-], EditCustomerProfileInputs.prototype, "firstName", void 0);
-__decorate([
-    (0, class_validator_1.Length)(3, 16),
-    __metadata("design:type", String)
-], EditCustomerProfileInputs.prototype, "lastName", void 0);
-__decorate([
-    (0, class_validator_1.Length)(3, 16),
-    __metadata("design:type", String)
-], EditCustomerProfileInputs.prototype, "address", void 0);
-class CustomerLoginInputs {
-}
-exports.CustomerLoginInputs = CustomerLoginInputs;
+exports.UserLoginInput = UserLoginInput;
 __decorate([
     (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
-], CustomerLoginInputs.prototype, "email", void 0);
+], UserLoginInput.prototype, "email", void 0);
 __decorate([
     (0, class_validator_1.Length)(6, 12),
     __metadata("design:type", String)
-], CustomerLoginInputs.prototype, "password", void 0);
-//# sourceMappingURL=customer.dto.js.map
+], UserLoginInput.prototype, "password", void 0);
+class EditCustomerProfileInput {
+}
+exports.EditCustomerProfileInput = EditCustomerProfileInput;
+__decorate([
+    (0, class_validator_1.Length)(3, 16),
+    __metadata("design:type", String)
+], EditCustomerProfileInput.prototype, "firstName", void 0);
+__decorate([
+    (0, class_validator_1.Length)(3, 16),
+    __metadata("design:type", String)
+], EditCustomerProfileInput.prototype, "lastName", void 0);
+__decorate([
+    (0, class_validator_1.Length)(6, 16),
+    __metadata("design:type", String)
+], EditCustomerProfileInput.prototype, "address", void 0);
+class CartItem {
+}
+exports.CartItem = CartItem;
+class OrderInputs {
+}
+exports.OrderInputs = OrderInputs;
+class CreateDeliveryUserInput {
+}
+exports.CreateDeliveryUserInput = CreateDeliveryUserInput;
+__decorate([
+    (0, class_validator_1.IsEmail)(),
+    __metadata("design:type", String)
+], CreateDeliveryUserInput.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.Length)(7, 12),
+    __metadata("design:type", String)
+], CreateDeliveryUserInput.prototype, "phone", void 0);
+__decorate([
+    (0, class_validator_1.Length)(6, 12),
+    __metadata("design:type", String)
+], CreateDeliveryUserInput.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.Length)(3, 12),
+    __metadata("design:type", String)
+], CreateDeliveryUserInput.prototype, "firstName", void 0);
+__decorate([
+    (0, class_validator_1.Length)(3, 12),
+    __metadata("design:type", String)
+], CreateDeliveryUserInput.prototype, "lastName", void 0);
+__decorate([
+    (0, class_validator_1.Length)(6, 24),
+    __metadata("design:type", String)
+], CreateDeliveryUserInput.prototype, "address", void 0);
+__decorate([
+    (0, class_validator_1.Length)(4, 12),
+    __metadata("design:type", String)
+], CreateDeliveryUserInput.prototype, "pincode", void 0);
+//# sourceMappingURL=Customer.dto.js.map

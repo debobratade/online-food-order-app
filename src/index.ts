@@ -1,15 +1,19 @@
 import express from 'express';
-import App  from './services/expressApp';
-import dbConnection  from './services/dataBase';
+import App from './services/ExpressApp';
+import dbConnection from './services/Database';
 import { PORT } from './config';
 
-const startServer = async()=>{
-    const app = express()
+const StartServer = async () => {
+
+    const app = express();
+
     await dbConnection()
+
     await App(app);
-    app.listen(PORT,()=>{
-        console.log(`Listenting to port ${PORT}`)
+
+    app.listen(PORT, () => {
+        console.log(`Listening to port 8000 ${PORT}`);
     })
 }
 
-startServer()
+StartServer();

@@ -1,25 +1,31 @@
-//Email
+/* ------------------- OTP --------------------- */
 
-//Notification
+export const GenerateOtp = () => {
 
-//OTP
-export const generateOtp=()=>{
-    const otp = Math.floor(100000 + Math.random()*900000)
+    const otp = Math.floor(10000 + Math.random() * 900000);
     let expiry = new Date()
-    expiry.setTime(new Date().getTime()+ (30*60*100))
-    return {otp, expiry}
+    expiry.setTime(new Date().getTime() + (30 * 60 * 1000));
+
+    return {otp, expiry};
 }
 
-export const onRequestOtp = async (otp:number, toPhoneNumber:string|number)=>{
+export const onRequestOTP = async(otp: number, toPhoneNumber: string) => {
 
-    const accountSId=''
-    const authToken=''
-    const client= require('twilio')(accountSId, authToken);
-
-    const response = await client.message.create({
-        body:`Your OTP is ${otp}`,
-        from:'',
-        to:toPhoneNumber
-    })
-    return response
+    try {
+        const accountSid = " Account SID from TWILIO DASHBOARD";
+        const authToken = " AUTH TOKEN AS I SAID ON VIDEO";
+        const client = require('twilio')(accountSid, authToken);
+    
+        const response = await client.message.create({
+            body: `Your OTP is ${otp}`,
+            from: 'Your TWILIO PHONE NUMBER YOU CAN GET IT FROM YOUR DASHBOARD',
+            to: `recipient_countrycode${toPhoneNumber}` // recipient phone number // Add country before the number
+        })
+    
+        return response;
+    } catch (error){
+        return false
+    }
+    
 }
+

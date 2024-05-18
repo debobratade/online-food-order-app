@@ -9,67 +9,101 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getVendorById = exports.getVendors = exports.createVendor = exports.FindVandor = void 0;
+exports.GetDeliveryUsers = exports.VerifyDeliveryUser = exports.GetTransactionById = exports.GetTransactions = exports.GetVandorByID = exports.GetVanndors = exports.CreateVandor = exports.FindVendor = void 0;
 const models_1 = require("../models");
+const Transaction_1 = require("../models/Transaction");
 const utility_1 = require("../utility");
-// Query function to find vendor by id or email
-const FindVandor = (id, email) => __awaiter(void 0, void 0, void 0, function* () {
+const FindVendor = (id, email) => __awaiter(void 0, void 0, void 0, function* () {
     if (email) {
-        return yield models_1.Vandor.findOne({ email: email });
+        return yield models_1.Vendor.findOne({ email: email });
     }
     else {
-        return yield models_1.Vandor.findById(id);
+        return yield models_1.Vendor.findById(id);
     }
 });
-exports.FindVandor = FindVandor;
-// API to create vandor
-const createVendor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, address, pincode, foodType, email, password, ownerName, phone, serviceAvailable } = req.body;
-    const exitVandor = yield (0, exports.FindVandor)('', email);
-    if (exitVandor !== null) {
-        return res
-            .status(400)
-            .json({ message: "A vandor is already present with this email ID." });
+exports.FindVendor = FindVendor;
+const CreateVandor = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { name, address, pincode, foodType, email, password, ownerName, phone } = req.body;
+    const existingVandor = yield (0, exports.FindVendor)('', email);
+    if (existingVandor !== null) {
+        return res.json({ "message": "A vandor is exist with this email ID" });
     }
-    // Generate salt string for password
-    const salt = yield (0, utility_1.generateSalt)();
-    // Mix the salt with password and make it a bcrypt string
-    const userPassword = yield (0, utility_1.generatePassword)(password, salt);
-    const createVandor = yield models_1.Vandor.create({
+    //generate a salt
+    const salt = yield (0, utility_1.GenerateSalt)();
+    const userPassword = yield (0, utility_1.GeneratePassword)(password, salt);
+    // encrypt the password using the salt
+    const createdVandor = yield models_1.Vendor.create({
         name: name,
-        ownerName: ownerName,
-        foodType: foodType,
-        pincode: pincode,
         address: address,
-        phone: phone,
+        pincode: pincode,
+        foodType: foodType,
         email: email,
         password: userPassword,
         salt: salt,
-        serviceAvailable: serviceAvailable,
-        coverImages: [],
+        ownerName: ownerName,
+        phone: phone,
         rating: 0,
-        foods: []
+        serviceAvailable: false,
+        coverImages: [],
+        lat: 0,
+        lng: 0
     });
-    return res.status(200).json(createVandor);
+    return res.json(createdVandor);
 });
-exports.createVendor = createVendor;
-// API to get all vandors
-const getVendors = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const allvandor = yield models_1.Vandor.find();
-    if (allvandor != null) {
-        return res.status(200).json(allvandor);
+exports.CreateVandor = CreateVandor;
+const GetVanndors = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const vendors = yield models_1.Vendor.find();
+    if (vendors !== null) {
+        return res.json(vendors);
     }
-    return res.status(404).json({ message: "Vandors data are not avaliable" });
+    return res.json({ "message": "Vendors data not available" });
 });
-exports.getVendors = getVendors;
-// API to get vandor by database ID
-const getVendorById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.GetVanndors = GetVanndors;
+const GetVandorByID = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const vendorId = req.params.id;
+    const vendors = yield (0, exports.FindVendor)(vendorId);
+    if (vendors !== null) {
+        return res.json(vendors);
+    }
+    return res.json({ "message": "Vendors data not available" });
+});
+exports.GetVandorByID = GetVandorByID;
+const GetTransactions = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const transactions = yield Transaction_1.Transaction.find();
+    if (transactions) {
+        return res.status(200).json(transactions);
+    }
+    return res.json({ "message": "Transactions data not available" });
+});
+exports.GetTransactions = GetTransactions;
+const GetTransactionById = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
-    const getVandorData = yield (0, exports.FindVandor)(id);
-    if (getVandorData != null) {
-        return res.status(200).json(getVandorData);
+    const transaction = yield Transaction_1.Transaction.findById(id);
+    if (transaction) {
+        return res.status(200).json(transaction);
     }
-    return res.status(400).json({ message: 'Vandor data is not avaliable' });
+    return res.json({ "message": "Transaction data not available" });
 });
-exports.getVendorById = getVendorById;
-//# sourceMappingURL=adminController.js.map
+exports.GetTransactionById = GetTransactionById;
+const VerifyDeliveryUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { _id, status } = req.body;
+    if (_id) {
+        const profile = yield models_1.DeliveryUser.findById(_id);
+        if (profile) {
+            profile.verified = status;
+            const result = yield profile.save();
+            return res.status(200).json(result);
+        }
+    }
+    return res.json({ message: 'Unable to verify Delivery User' });
+});
+exports.VerifyDeliveryUser = VerifyDeliveryUser;
+const GetDeliveryUsers = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const deliveryUsers = yield models_1.DeliveryUser.find();
+    if (deliveryUsers) {
+        return res.status(200).json(deliveryUsers);
+    }
+    return res.json({ message: 'Unable to get Delivery Users' });
+});
+exports.GetDeliveryUsers = GetDeliveryUsers;
+//# sourceMappingURL=AdminController.js.map

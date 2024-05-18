@@ -1,19 +1,30 @@
-import express,{Application} from 'express';
-import { adminRoutes, customerRoute, shoppingRoute, vendorRoutes } from '../routes';
+import express , { Application } from 'express';
 import path from 'path';
 
+import {AdminRoute, DeliveryRoute, VandorRoute} from '../routes'
+import { CustomerRoute } from '../routes/CustomerRoute';
+import { ShoppingRoute } from '../routes/ShoppingRoutes';
+ 
 
+export default async(app: Application) => {
 
-export default async(app:Application)=>{
     app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
-    app.use('/images', express.static(path.join(__dirname, '../images')))
-
-    app.use('/admin', adminRoutes);
-    app.use('/vendor', vendorRoutes);
-    app.use('/shopping', shoppingRoute);
-    app.use('/customer', customerRoute);
-
-    return app
+    app.use(express.urlencoded({ extended: true}))
     
+    app.use(express.json());
+ 
+    const imagePath = path.join(__dirname,'../images');
+    
+    app.use('/images', express.static(imagePath));
+    
+    app.use('/admin', AdminRoute);
+    app.use('/vendor', VandorRoute)
+    app.use('/customer', CustomerRoute)
+    app.use('/delivery', DeliveryRoute);
+    app.use(ShoppingRoute);
+
+    return app;
+
 }
+
+  

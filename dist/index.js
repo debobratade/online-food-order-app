@@ -13,16 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const expressApp_1 = __importDefault(require("./services/expressApp"));
-const dataBase_1 = __importDefault(require("./services/dataBase"));
+const ExpressApp_1 = __importDefault(require("./services/ExpressApp"));
+const Database_1 = __importDefault(require("./services/Database"));
 const config_1 = require("./config");
-const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
+const StartServer = () => __awaiter(void 0, void 0, void 0, function* () {
     const app = (0, express_1.default)();
-    yield (0, dataBase_1.default)();
-    yield (0, expressApp_1.default)(app);
+    yield (0, Database_1.default)();
+    yield (0, ExpressApp_1.default)(app);
     app.listen(config_1.PORT, () => {
-        console.log(`Listenting to port ${config_1.PORT}`);
+        console.log(`Listening to port 8000 ${config_1.PORT}`);
     });
 });
-startServer();
+StartServer();
 //# sourceMappingURL=index.js.map

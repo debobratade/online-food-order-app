@@ -1,3 +1,1 @@
-
-export * from './commonAuth'
-export * from './imageStorage'
+export * from './CommonAuth';

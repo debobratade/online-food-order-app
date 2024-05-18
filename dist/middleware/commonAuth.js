@@ -9,16 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.authenticate = void 0;
+exports.Authenticate = void 0;
 const utility_1 = require("../utility");
-const authenticate = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const validate = yield (0, utility_1.validateSignature)(req);
-    if (validate == true) {
-        next();
+const Authenticate = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const signature = yield (0, utility_1.ValidateSignature)(req);
+    if (signature) {
+        return next();
     }
     else {
-        return res.status(401).json({ 'message': 'authentication fail!' });
+        return res.json({ message: "User Not authorised" });
     }
 });
-exports.authenticate = authenticate;
-//# sourceMappingURL=commonAuth.js.map
+exports.Authenticate = Authenticate;
+//# sourceMappingURL=CommonAuth.js.map

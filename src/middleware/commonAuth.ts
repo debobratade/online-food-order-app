@@ -1,21 +1,21 @@
-import { AuthPayload } from "../dto/auth.dto";
-import { NextFunction, Request, Response } from "express";
-import { validateSignature } from "../utility";
+import { Request, NextFunction, Response } from 'express'
+import {AuthPayload } from '../dto'
+import { ValidateSignature } from '../utility';
 
 declare global {
-    namespace Express {
-        interface Request {
+    namespace Express{
+        interface Request{
             user?: AuthPayload
         }
     }
-}           
+}
 
+export const Authenticate = async (req: Request, res: Response, next: NextFunction) => {
 
-export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
-    const validate = await validateSignature(req)
-    if (validate==true) {
-        next()
-    } else {
-        return res.status(401).json({ 'message': 'authentication fail!' })
+    const signature = await ValidateSignature(req);
+    if(signature){
+        return next()
+    }else{
+        return res.json({message: "User Not authorised"});
     }
 }

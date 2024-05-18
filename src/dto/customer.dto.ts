@@ -1,46 +1,44 @@
-import { IsEmail, IsEmpty, Length } from "class-validator";
+import { IsEmail, Length } from "class-validator";
 
-export class CreateCustomerInputs{
+export class CreateCustomerInput {
     @IsEmail()
     email: string;
-
-    @Length(7, 12)
-    phone:string
-
-    @Length(6, 12)
-    password:string
+    
+    @Length(7,12)
+    phone: string;
+    
+    @Length(6,12)
+    password: string;
 }
 
-export class EditCustomerProfileInputs{
-    @Length(3, 16)
+export class UserLoginInput {
+    @IsEmail()
+    email: string;
+    
+    @Length(6,12)
+    password: string;
+}
+
+
+export class EditCustomerProfileInput {
+   
+    @Length(3,16)
     firstName: string;
 
-    @Length(3, 16)
-    lastName:string
-
-    @Length(3, 16)
-    address:string
+    @Length(3,16)
+    lastName: string;
+    
+    @Length(6,16)
+    address: string;
 }
+ 
 
-export class CustomerLoginInputs{
-    @IsEmail()
+export interface CustomerPayload {
+    _id: string;
     email: string;
-
-    @Length(6, 12)
-    password:string
+    verified: boolean;
 }
 
-export interface CustomerPayload{
-    _id:string;
-    email:string;
-    verified:boolean;
-}
-
-
-export interface OrderInputs{
-    _id:string;
-   unit:number;
-}
 
 export class CartItem {
     _id: string;

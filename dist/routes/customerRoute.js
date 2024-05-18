@@ -3,28 +3,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.customerRoute = void 0;
+exports.CustomerRoute = void 0;
 const express_1 = __importDefault(require("express"));
 const controllers_1 = require("../controllers");
 const middleware_1 = require("../middleware");
 const router = express_1.default.Router();
-exports.customerRoute = router;
-/**---------------- Signup / create customer ---------------**/
-router.post('/signup', controllers_1.customerSignUp);
-/**---------------- Login ---------------**/
-router.post('/login', controllers_1.customerLogin);
-/**---------------- Authentication ---------------**/
-router.use(middleware_1.authenticate);
-/**---------------- Verify customer account ---------------**/
-router.patch('/verify', controllers_1.customerVerify);
-/**---------------- OTP / Requesting OTP ---------------**/
-router.get('/otp', controllers_1.requestOtp);
-/**---------------- Profile ---------------**/
-router.get('/getprofile', controllers_1.getCustomerProfile);
-router.patch('/updateprofile', controllers_1.editCustomerProfile);
-// Cart
-// Order
-router.post('/create-order', controllers_1.orderFood);
-router.get('/orders', controllers_1.getAllOrder);
-router.get('/order/:id', controllers_1.getOrderById);
-//# sourceMappingURL=customerRoute.js.map
+exports.CustomerRoute = router;
+/* ------------------- Suignup / Create Customer --------------------- */
+router.post('/signup', controllers_1.CustomerSignUp);
+/* ------------------- Login --------------------- */
+router.post('/login', controllers_1.CustomerLogin);
+/* ------------------- Authentication --------------------- */
+router.use(middleware_1.Authenticate);
+/* ------------------- Verify Customer Account --------------------- */
+router.patch('/verify', controllers_1.CustomerVerify);
+/* ------------------- OTP / request OTP --------------------- */
+router.get('/otp', controllers_1.RequestOtp);
+/* ------------------- Profile --------------------- */
+router.get('/profile', controllers_1.GetCustomerProfile);
+router.patch('/profile', controllers_1.EditCustomerProfile);
+//Cart
+router.post('/cart', controllers_1.AddToCart);
+router.get('/cart', controllers_1.GetCart);
+router.delete('/cart', controllers_1.DeleteCart);
+//Apply Offers
+router.get('/offer/verify/:id', controllers_1.VerifyOffer);
+//Payment
+router.post('/create-payment', controllers_1.CreatePayment);
+//Order
+router.post('/create-order', controllers_1.CreateOrder);
+router.get('/orders', controllers_1.GetOrders);
+router.get('/order/:id', controllers_1.GetOrderById);
+//# sourceMappingURL=CustomerRoute.js.map

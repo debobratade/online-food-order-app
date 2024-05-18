@@ -29,26 +29,32 @@ const CustomerSchema = new mongoose_1.Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
     salt: { type: String, required: true },
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    address: { type: String, required: true },
+    firstName: { type: String },
+    lastName: { type: String },
+    address: { type: String },
     phone: { type: String, required: true },
-    verified: { type: Boolean, required: true },
-    otp: { type: Number, required: true },
-    otp_expiery: { type: Date, required: true },
+    verified: { type: Boolean },
+    otp: { type: Number },
+    otp_expiry: { type: Date },
     lat: { type: Number },
     lng: { type: Number },
+    cart: [
+        {
+            food: { type: mongoose_1.Schema.Types.ObjectId, ref: 'food', require: true },
+            unit: { type: Number, require: true }
+        }
+    ],
     orders: [{
             type: mongoose_1.Schema.Types.ObjectId,
-            ref: 'order',
+            ref: 'order'
         }]
 }, {
     toJSON: {
         transform(doc, ret) {
-            delete ret.__v;
             delete ret.password;
             delete ret.salt;
-            delete ret.updatedAt;
+            delete ret.__v;
+            delete ret.createdAt;
             delete ret.updatedAt;
         }
     },
@@ -56,4 +62,4 @@ const CustomerSchema = new mongoose_1.Schema({
 });
 const Customer = mongoose_1.default.model('customer', CustomerSchema);
 exports.Customer = Customer;
-//# sourceMappingURL=customer.js.map
+//# sourceMappingURL=Customer.js.map

@@ -32,7 +32,7 @@ const FoodSchema = new mongoose_1.Schema({
     category: { type: String },
     foodType: { type: String, required: true },
     readyTime: { type: Number },
-    price: { type: Number, required: true },
+    price: { type: Number },
     rating: { type: Number },
     images: { type: [String] },
 }, {
@@ -47,4 +47,4 @@ const FoodSchema = new mongoose_1.Schema({
 });
 const Food = mongoose_1.default.model('food', FoodSchema);
 exports.Food = Food;
-//# sourceMappingURL=food.js.map
+//# sourceMappingURL=Food.js.map

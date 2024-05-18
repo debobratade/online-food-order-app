@@ -23,4 +23,4 @@ exports.default = () => __awaiter(void 0, void 0, void 0, function* () {
         console.error('Error connecting to MongoDB:', err);
     }
 });
-//# sourceMappingURL=dataBase.js.map
+//# sourceMappingURL=Database.js.map
